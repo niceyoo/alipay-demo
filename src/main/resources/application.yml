@@ -1,0 +1,86 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+
+spring:
+  # 数据源
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/redis_demo?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password:  123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    logSlowSql: true
+    # Druid StatViewServlet配置
+    druid:
+      stat-view-servlet:
+        # 默认true 内置监控页面首页/druid/index.html
+        enabled: true
+        url-pattern: /druid/*
+        # 允许清空统计数据
+        reset-enable: true
+        login-username: root
+        login-password: 1234 #YPZWdNjFBsYS5snR
+        # IP白名单 多个逗号分隔
+        allow:
+        # IP黑名单
+        deny:
+      filter:
+        stat:
+          # 开启监控sql
+          enabled: true
+          # 显示并标注慢sql 默认当超过3秒显示
+          log-slow-sql: true
+          slow-sql-millis: 300000
+          merge-sql: true
+        # 防SQL注入过滤
+        wall:
+          config:
+            # 允许多条sql同时执行
+            multi-statement-allow: true
+  jpa:
+    # 显示sql
+    show-sql: true
+    # 自动生成表结构
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  # 文件大小上传配置
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  # 返回Json数据日期带上时区
+  jackson:
+    time-zone: GMT+8
+    serialization:
+      fail-on-empty-beans: false
+  thymeleaf:
+    enabled: true  #开启thymeleaf视图解析
+    encoding: utf-8  #编码
+    prefix: classpath:/templates/  #前缀
+    cache: false  #是否使用缓存
+    mode: LEGACYHTML5  #严格的HTML语法模式
+    suffix: .html  #后缀名
+
+## 支付宝配置
+alipay:
+  # 应用ID
+  appId: 你的appid
+  # 应用私钥
+  privateKey: 你的应用私钥privateKey
+  # 支付宝公钥，注意不是生成的应用公钥
+  publicKey: 你的支付宝公钥publicKey
+  #支付网关配置，这一项是写死的，正式环境是openapi.alipay.com
+  gateway: openapi.alipaydev.com
+  # 支付宝前台跳转地址
+  returnUrl: http://ngrok.sscai.club/html/success
+  # 支付宝后台通知地址
+  notifyUrl: http://ngrok.sscai.club/api/alipay/notify_url
+  # 支付宝前台手机网页支付中途取消跳转地址
+  errorUrl: http://ngrok.sscai.club/html/error

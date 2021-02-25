@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>测试支付</title>
+</head>
+<body>
+<div>
+    <h2>测试支付</h2>
+    <form enctype="multipart/form-data" action="/api/alipay/page" method="post">
+        <button type="submit">电脑确认支付</button>
+    </form>
+    <form enctype="multipart/form-data" action="/api/alipay/wap" method="post">
+        <button type="submit">手机确认支付</button>
+    </form>
+</div>
+</body>
+</html>
